@@ -16,7 +16,8 @@
     "declaration": true,
     "outDir": "./lib"
   },
-  "files": [
+  "include": [
+    "./src",
     "./index.ts"
   ]
 }

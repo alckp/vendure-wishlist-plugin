@@ -2,15 +2,15 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ListQueryBuilder, PaginatedList, RequestContext, TransactionalConnection } from '@vendure/core';
 
 import { ExampleEntity } from '../entities/example.entity';
-import { PLUGIN_INIT_OPTIONS } from '../constants';
-import { PluginInitOptions } from '../types';
+import { PLUGIN_OPTIONS } from '../constants';
+import { WishlistPluginOptions } from '../types';
 import { CreateExampleInput, ExampleListOptions, UpdateExampleInput } from '../generated-admin-types';
 
 @Injectable()
 export class ExampleService {
     constructor(
         private connection: TransactionalConnection,
-        @Inject(PLUGIN_INIT_OPTIONS) private options: PluginInitOptions,
+        @Inject(PLUGIN_OPTIONS) private options: WishlistPluginOptions,
         private listQueryBuilder: ListQueryBuilder,
     ) {}
 

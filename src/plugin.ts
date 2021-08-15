@@ -1,14 +1,14 @@
-import { PluginCommonModule, VendurePlugin } from '@vendure/core';
-import { AdminUiExtension } from '@vendure/ui-devkit/compiler';
-import path from 'path';
+import { PluginCommonModule, Type, VendurePlugin } from '@vendure/core';
 
-import { PLUGIN_INIT_OPTIONS } from './constants';
+import { Logger } from '@nestjs/common';
+
+import { LOGGER_CTX, PLUGIN_OPTIONS } from './constants';
 import { ExampleEntity } from './entities/example.entity';
 import { ExampleService } from './service/example.service';
 import { adminApiExtensions, shopApiExtensions } from './api/api-extensions';
 import { ExampleResolver } from './api/example.resolver';
 import { ExampleAdminResolver } from './api/example-admin.resolver';
-import { PluginInitOptions } from './types';
+import { WishlistPluginOptions } from './types';
 
 /**
  * An example Vendure plugin.
@@ -42,35 +42,20 @@ import { PluginInitOptions } from './types';
         ExampleService,
         // By definiting the `PLUGIN_INIT_OPTIONS` symbol as a provider, we can then inject the
         // user-defined options into other classes, such as the {@link ExampleService}.
-        { provide: PLUGIN_INIT_OPTIONS, useFactory: () => ExamplePlugin.options },
+        { provide: PLUGIN_OPTIONS, useFactory: () => WishlistPlugin.options },
     ],
 })
-export class ExamplePlugin {
-    static options: PluginInitOptions;
+export class WishlistPlugin {
+    static options: WishlistPluginOptions;
 
     /**
      * The static `init()` method is a convention used by Vendure plugins which allows options
      * to be configured by the user.
      */
-    static init(options: PluginInitOptions): ExamplePlugin {
-        this.options = options;
-        return ExamplePlugin;
-    }
+    static init(options: WishlistPluginOptions): Type<WishlistPlugin> {
+        Logger.verbose('Wishlist plugin starting...', LOGGER_CTX);
 
-    static uiExtensions: AdminUiExtension = {
-        extensionPath: path.join(__dirname, 'ui'),
-        ngModules: [
-            {
-                type: 'shared' as const,
-                ngModuleFileName: 'example-ui-extension.module.ts',
-                ngModuleName: 'ExampleUiExtensionModule',
-            },
-            {
-                type: 'lazy' as const,
-                route: 'examples',
-                ngModuleFileName: 'example-ui-lazy.module.ts',
-                ngModuleName: 'ExampleUiLazyModule',
-            },
-        ],
-    };
+        this.options = options;
+        return this;
+    }
 }

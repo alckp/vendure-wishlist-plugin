@@ -2,7 +2,7 @@
 import { createTestEnvironment, registerInitializer, SqljsInitializer } from '@vendure/testing';
 import path from 'path';
 
-import { ExamplePlugin } from '../plugin';
+import { WishlistPlugin } from '../plugin';
 
 import { ADD_EXAMPLE, UPDATE_EXAMPLE } from './graphql/admin-e2e-definitions.graphql';
 import { GET_EXAMPLES, GET_EXAMPLE } from './graphql/shop-e2e-definitions.graphql';
@@ -19,7 +19,7 @@ describe('example plugin', () => {
 
     const { server, adminClient, shopClient } = createTestEnvironment({
         ...testConfig,
-        plugins: [ExamplePlugin],
+        plugins: [WishlistPlugin],
     });
 
     beforeAll(async () => {
