@@ -9,6 +9,11 @@
     "@typescript-eslint",
     "prettier"
   ],
+  "ignorePatterns": [
+    "migrations/*.ts",
+    "generated-*.ts",
+    "lib/*"
+  ],
   "env": {
     "node": true,
     "jasmine": true,
@@ -21,7 +26,8 @@
         "singleQuote": true,
         "tabWidth": 4,
         "trailingComma": "all",
-        "printWidth": 110
+        "printWidth": 110,
+        "endOfLine": "auto"
       }
     ],
     "@typescript-eslint/no-use-before-define": "off",
